@@ -27,16 +27,19 @@ try:
 except Exception:
     print("Issue with serial! Aborting...")
 
-if not os.path.exists('data'):
-    os.makedirs('data')
+if not os.path.exists('data_v1'):
+    os.makedirs('data_v1')
 
 start_time = current_time = datetime.datetime.now()
 time_str = start_time.strftime('%Y-%m-%d_%H-%M-%S')
-file_str = 'test.txt'          #i changed the file name!
+file_str = f'data_v1/test_{time_str}.txt'
 delay_datetime = datetime.timedelta(seconds=delay)
 
 if dev:
     with open(file_str, 'w') as f:
+        start_message = f'Starting data logging at {start_time.strftime("%H:%M:%S")}:\n'
+        f.write(start_message)
+        print(start_message[:-2])
         try:
             while running:
                 try:
@@ -64,6 +67,7 @@ if dev:
                 finally:
                     f.write(log_data)
                     print(log_data[:-2])
+
         except KeyboardInterrupt:
             end_message = f'Ending logging at {datetime.datetime.now().strftime("%H:%M:%S")}'
             test_duration = (datetime.datetime.now() - start_time) / datetime.timedelta(seconds=1)
@@ -72,10 +76,15 @@ if dev:
             test_duration_message = f'Test duration: {test_duration_mins} minutes {test_duration_secs:.3f} seconds'
             print(end_message)
             print(test_duration_message)
-            
+            f.write(end_message)
+            f.write('\n')
+            f.write(test_duration_message)
 
 else:
     with open(file_str, 'w') as f:
+        start_message = f'Starting data logging at {start_time.strftime("%H:%M:%S")}:\n'
+        f.write(start_message)
+        print(start_message[:-2])
         try:
             while running:
                 try:
@@ -103,6 +112,7 @@ else:
                 finally:
                     f.write(log_data)
                     print(log_data[:-2])
+
         except KeyboardInterrupt:
             end_message = f'Ending logging at {datetime.datetime.now().strftime("%H:%M:%S")}'
             test_duration = (datetime.datetime.now() - start_time) / datetime.timedelta(seconds=1)
@@ -111,4 +121,6 @@ else:
             test_duration_message = f'Test duration: {test_duration_mins} minutes {test_duration_secs:.3f} seconds'
             print(end_message)
             print(test_duration_message)
-            
+            f.write(end_message)
+            f.write('\n')
+            f.write(test_duration_message)

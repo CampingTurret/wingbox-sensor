@@ -5,6 +5,7 @@ Helper scripts
 import random
 import serial.tools.list_ports
 
+
 def port_scan():
     ports = serial.tools.list_ports.comports()
     for item in ports:
