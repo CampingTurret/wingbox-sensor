@@ -197,6 +197,7 @@ def makevaluesreadable(functions, file):
     for lines in c.readlines():
         v = lines.removesuffix('\n')
         t = v.split(' ')
+        print(t)
         l1.append(t[1])
     c.close()
     
@@ -224,7 +225,7 @@ def makevaluesreadable(functions, file):
     plt.legend(['sensor-input'])
     plt.title('sensor-input')
     plt.grid()
-    plt.show(block=False)
+    plt.show(block=True)
 
     print(arr)
         

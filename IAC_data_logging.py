@@ -17,7 +17,7 @@ from IAC_helper import port_scan, development_data
 dev = True              # Development mode
 usbPort = "editMe"      # Your USB port, obtain using port_scan()
 
-delay = 0.2             # Seconds
+delay = 0.02            # Seconds
 
 try:
     if not dev:
