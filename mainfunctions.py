@@ -34,15 +34,7 @@ def testing(filename):
         import IAC_data_logging
         
     elif boxtype == 2:
-        #import setup
-    
-        f = open(filename, 'w')
-    
-        while active:
-            print("b2")
-            #run box2
-            active = endcheck()
-            break
+        import IAC_DAQ_MC2221
 
 
     
@@ -106,13 +98,14 @@ def calibrate(filename):
 
 
     elif boxtype == 2:
-        #import setup 
+        
+        import mini_IAC_DAQ_MC2221
     
         f = open(filename, 'w')
     
         while active:
             print("------------------------------------------------------------")
-            Finput = input("Force applied (N):")
+            Finput = input("Force applied:")
             #end condition
             if Finput == '':
                 p = open("check.py", "w")
@@ -120,10 +113,12 @@ def calibrate(filename):
                 p.close()
                 break
             Finput = float(Finput)
-            Deflectioninput = float(input("deflection mesured (cm):"))
+            Deflectioninput = float(input("deflection mesured:"))
             #getvalue (currently calculates test values below)
-            v1 = Finput * 120 + 80
-            v2 = Deflectioninput * 600 + 20
+            values = mini_IAC_DAQ_MC2221.getvalues()
+            tempv = values.split('%')
+            v1, v2 = tempv[0], tempv[1]
+            
 
             #string conversion and write
             s1 = str(Finput)
@@ -134,6 +129,7 @@ def calibrate(filename):
 
             #end
             active = endcheck()
+        
 
     
 def decodefindfunction(listq):
