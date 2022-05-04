@@ -34,7 +34,7 @@ def testing(filename):
         import IAC_data_logging
         
     elif boxtype == 2:
-        import IAC_DAQ_MC2221
+        import IAC_DAQ_MCP2221
 
 
     
@@ -218,8 +218,8 @@ def makevaluesreadable(functions, file):
     plt.plot(X1,y1,'bo')
     plt.ylabel('displacement')
     plt.xlabel('force')
-    plt.legend(['sensor-input'])
-    plt.title('sensor-input')
+    plt.legend(['sensor data'])
+    plt.title('sensor data')
     plt.grid()
     plt.show(block=True)
 
