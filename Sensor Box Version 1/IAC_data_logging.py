@@ -14,10 +14,16 @@ import serial
 import datetime
 from IAC_helper import port_scan, development_data
 
-dev = True              # Development mode
-usbPort = "editMe"      # Your USB port, obtain using port_scan()
+dev = False              # Development mode
+usbPort = "COM3"      # Your USB port, obtain using port_scan()
 
-delay = 0.2             # Seconds
+delay = 0.5             # Seconds
+
+# calibratio data
+load_cell_a = 1
+load_cell_b = 0
+time_of_flight_a = 1
+time_of_flight_b = 0
 
 try:
     if not dev:
@@ -55,7 +61,10 @@ if dev:
                     ms_str = str(milliseconds).zfill(3)
                     split_line = line.split(' ')
                     load_cell, time_of_flight = split_line[1], split_line[3]
-                    log_data = f'[{timestamp.strftime("%H:%M:%S")}.{ms_str}]: {load_cell},{time_of_flight}\n'
+                    load_cell_N = load_cell * load_cell_a + load_cell_b
+                    time_of_flight_cm = time_of_flight * time_of_flight_a + time_of_flight_b
+                    log_data = f'[{timestamp.strftime("%H:%M:%S")}.{ms_str}]: {load_cell}, {time_of_flight}, ' \
+                               f'({load_cell_N} N, {time_of_flight_cm} cm)\n'
                 except KeyboardInterrupt:  # unlikely we will catch an interrupt here, but just in case
                     raise KeyboardInterrupt
                 except Exception as e:
@@ -100,7 +109,10 @@ else:
                     ms_str = str(milliseconds).zfill(3)
                     split_line = line.split(' ')
                     load_cell, time_of_flight = split_line[1], split_line[3]
-                    log_data = f'[{timestamp.strftime("%H:%M:%S")}.{ms_str}]: {load_cell},{time_of_flight}\n'
+                    load_cell_N = float(load_cell) * load_cell_a + load_cell_b
+                    time_of_flight_cm = float(time_of_flight) * time_of_flight_a + time_of_flight_b
+                    log_data = f'[{timestamp.strftime("%H:%M:%S")}.{ms_str}]: {load_cell}, {time_of_flight}, ' \
+                               f'({load_cell_N} N, {time_of_flight_cm} cm)\n'
                 except KeyboardInterrupt:  # unlikely we will catch an interrupt here, but just in case
                     raise KeyboardInterrupt
                 except Exception as e:
