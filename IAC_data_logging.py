@@ -15,7 +15,7 @@ import datetime
 from IAC_helper import port_scan, development_data
 
 dev = False              # Development mode
-usbPort = "COM5"      # Your USB port, obtain using port_scan()
+usbPort = "COM7"      # Your USB port, obtain using port_scan()
 
 delay = 0.02            # Seconds
 

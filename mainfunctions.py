@@ -213,11 +213,11 @@ def makevaluesreadable(functions, file):
     j = j * a2 + b2
     arr = np.column_stack((k,j))
 
-    X1 = arr[:,0]
-    y1 = arr[:,1]
-    plt.plot(X1,y1,'bo')
-    plt.ylabel('displacement')
-    plt.xlabel('force')
+    X1 = arr[:,0] * 9.81
+    Y1 = arr[:,1] 
+    plt.plot(Y1,X1,'bo')
+    plt.xlabel('Distance from sensor (cm)')
+    plt.ylabel('Force (N)')
     plt.legend(['sensor data'])
     plt.title('sensor data')
     plt.grid()
